@@ -1,11 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cross & Knots</title>
-</head>
-<body>
-    
-</body>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div id="overlay">
+      <div id="message">
+        <div id="close">
+          <i class="fa fa-close"></i>
+        </div>
+        <div class="content">Player 1 is the <h2>WINNER</h2></div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="tools">
+        <div class="symbols">
+          <i class="fa-regular fa-circle-xmark"></i>
+          <i class="fa-regular fa-circle"></i>
+        </div>
+        <div class="turn"><span class="current-turn"></span>turn</div>
+        <div class="reset">
+          <div class="button">
+            <i class="fa fa-rotate-right"></i>
+          </div>
+        </div>
+      </div>
+      <!-- board part -->
+      <div class="board">
+        <div class="cells">
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+        </div>
+        <div class="cells">
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+        </div>
+        <div class="cells">
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="player">
+          <label>Player 1</label>
+          <span class="score1">0</span>
+        </div>
+        <div class="draws">
+          <label>Draws</label>
+          <span class="draw">0</span>
+        </div>
+        <div class="player">
+          <label>Player 2</label>
+          <span class="score2">0</span>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
 </html>
