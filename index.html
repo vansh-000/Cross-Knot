@@ -13,10 +13,10 @@
   <body>
     <div id="overlay">
       <div id="message">
-        <div id="close">
-          <i class="fa fa-close"></i>
+        <div class="content">
+          <span id="winner-message">Player 1 is the</span>
+          <h2 id="result">WINNER</h2>
         </div>
-        <div class="content">Player 1 is the <h2>WINNER</h2></div>
       </div>
     </div>
     <div class="container">
@@ -25,9 +25,11 @@
           <i class="fa-regular fa-circle-xmark"></i>
           <i class="fa-regular fa-circle"></i>
         </div>
-        <div class="turn"><span class="current-turn"></span>turn</div>
+        <div class="turn">
+          <span class="current-turn">Player 1's</span> turn
+        </div>
         <div class="reset">
-          <div class="button">
+          <div class="button" id="reset-button">
             <i class="fa fa-rotate-right"></i>
           </div>
         </div>
@@ -35,19 +37,19 @@
       <!-- board part -->
       <div class="board">
         <div class="cells">
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
+          <div class="cell" data-index="0"></div>
+          <div class="cell" data-index="1"></div>
+          <div class="cell" data-index="2"></div>
         </div>
         <div class="cells">
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
+          <div class="cell" data-index="3"></div>
+          <div class="cell" data-index="4"></div>
+          <div class="cell" data-index="5"></div>
         </div>
         <div class="cells">
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
+          <div class="cell" data-index="6"></div>
+          <div class="cell" data-index="7"></div>
+          <div class="cell" data-index="8"></div>
         </div>
       </div>
       <div class="stats">

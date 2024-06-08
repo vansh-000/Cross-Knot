@@ -9,10 +9,11 @@
 body {
   background-color: rgb(40, 76, 124);
   height: 100vh;
-  font-family: "Roboto", Helvetica, arial, sans-serif;
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
   font-size: 1.5em;
   color: #a7bfdc;
 }
+
 .container {
   position: absolute;
   width: 600px;
@@ -24,6 +25,7 @@ body {
   justify-content: center;
   flex-direction: column;
 }
+
 .tools,
 .stats {
   width: 430px;
@@ -34,18 +36,23 @@ body {
   border-radius: 20px;
   background: linear-gradient(#061423, #0d1f32);
 }
+
 .symbols i:nth-child(odd) {
   color: #febf14;
 }
+
 .reset {
   cursor: pointer;
 }
+
 .stats {
   margin-top: 20px;
 }
+
 .cells {
   display: flex;
 }
+
 .cell {
   width: 130px;
   height: 130px;
@@ -55,17 +62,10 @@ body {
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
   cursor: pointer;
   color: #a7bfdc;
+  display: flex;
   justify-content: center;
   align-items: center;
   font-size: 4em;
-  padding: 10px 15px 10px;
-}
-
-.cell .ico {
-  position: relative;
-  bottom: 0;
-  height: 110px;
-  width: 110px;
 }
 
 .player,
@@ -86,9 +86,11 @@ label {
 }
 
 #overlay {
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
@@ -97,31 +99,24 @@ label {
   display: none;
 }
 
-#message{
-    position: absolute;
-    height: 30%;
-    min-height: 250px;
-    width: 100%;
-    background-color: #142c46;
-    z-index: 2;
-    font-size: 1.2em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    border-top: 1px solid #19375b;
-    border-bottom: 1px solid #19375b;
-    box-shadow: 0 10px 20px #000;
+#message {
+  height: 30%;
+  min-height: 250px;
+  width: 80%;
+  max-width: 400px;
+  background-color: #142c46;
+  z-index: 2;
+  font-size: 1.2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 10px;
+  border: 1px solid #19375b;
+  box-shadow: 0 10px 20px #000;
 }
 
-#close{
-    position: absolute;
-    right: 20px;
-    top: 15px;
-    cursor: pointer;
-    padding: 10px;
-}
-
-#message h2{
-    color: #febf14;
+#message h2 {
+  color: #febf14;
 }
