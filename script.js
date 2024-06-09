@@ -10,6 +10,9 @@ const player2NameInput = document.getElementById("player2-name");
 const nameInputDiv = document.getElementById("name-input");
 const startGameBtn = document.getElementById("start-game");
 const gridSizeSelect = document.getElementById("grid-size");
+const modal = document.querySelector(".modal");
+const resetConfirmBtn = document.querySelector(".reset-confirm");
+const resetCancelBtn = document.querySelector(".reset-cancel");
 
 let currentPlayer = "Player 1";
 let player1Score = 0;
@@ -151,6 +154,19 @@ window.onload = () => {
   nameInputDiv.style.display = "flex";
 };
 
-resetBtn.addEventListener("click", resetGame);
-newGameBtn.addEventListener("click", startNewGame);
+resetBtn.addEventListener("click", () => {
+  modal.style.display = "flex";
+});
+
+resetConfirmBtn.addEventListener("click", () => {
+  resetGame();
+  modal.style.display = "none";
+});
+
+resetCancelBtn.addEventListener("click", () => {
+  modal.style.display = "none";
+});
+
 startGameBtn.addEventListener("click", startGame);
+newGameBtn.addEventListener("click", startNewGame);
+
