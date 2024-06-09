@@ -1,69 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cross & Knots</title>
-    <link rel="stylesheet" href="styles.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
-  </head>
-  <body>
-    <div id="overlay">
-      <div id="message">
-        <span id="winner-message">Player 1 is the</span>
-        <h2 id="result">WINNER</h2>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cross & Knots</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <div id="overlay">
+    <div id="message">
+      <span id="winner-message">Player 1 is the</span>
+      <h2 id="result">WINNER</h2>
+    </div>
+  </div>
+  <div class="container">
+    <div class="tools">
+      <div class="symbols">
+        <i class="fa-solid fa-x"></i>
+        <i class="fa-regular fa-circle"></i>
+      </div>
+      <div class="turn">
+        <span class="current-turn">Player 1's</span> turn
+      </div>
+      <div class="reset" id="reset-button">
+        <i class="fa fa-rotate-right"></i>
       </div>
     </div>
-    <div class="container">
-      <div class="tools">
-        <div class="symbols">
-          <i class="fa-solid fa-x"></i>
-          <i class="fa-regular fa-circle"></i>
-        </div>
-        <div class="turn">
-          <span class="current-turn">Player 1's</span> turn
-        </div>
-        <div class="reset" id="reset-button">
-          <i class="fa fa-rotate-right"></i>
-        </div>
+    <div class="board">
+      <div class="cells">
+        <!-- Cells will be generated dynamically -->
       </div>
-      <div class="board">
-        <div class="cells">
-          <!-- Cells will be generated dynamically -->
-        </div>
-      </div>
-      <div class="stats">
-        <div class="player">
-          <label>Player 1</label>
-          <span class="score1">0</span>
-        </div>
-        <div class="draws">
-          <label>Draws</label>
-          <span class="draw">0</span>
-        </div>
-        <div class="player">
-          <label>Player 2</label>
-          <span class="score2">0</span>
-        </div>
-      </div>
-      <div class="new-game" id="new-game">Start New Game</div>
     </div>
-    <div class="name-input" id="name-input">
-      <label for="player1-name">Player 1 Name:</label>
-      <input type="text" id="player1-name" placeholder="Enter name" />
-      <label for="player2-name">Player 2 Name:</label>
-      <input type="text" id="player2-name" placeholder="Enter name" />
-      <label for="grid-size">Grid Size:</label>
-      <select id="grid-size">
-        <option value="3">3x3</option>
-        <option value="4">4x4</option>
-        <option value="5">5x5</option>
-      </select>
-      <button class="start-game" id="start-game">Start Game</button>
+    <div class="stats">
+      <div class="player">
+        <label>Player 1</label>
+        <span class="score1">0</span>
+      </div>
+      <div class="draws">
+        <label>Draws</label>
+        <span class="draw">0</span>
+      </div>
+      <div class="player">
+        <label>Player 2</label>
+        <span class="score2">0</span>
+      </div>
     </div>
-    <script src="script.js"></script>
-  </body>
+    <div class="new-game" id="new-game">Start New Game</div>
+  </div>
+  <div class="name-input" id="name-input">
+    <label for="player1-name">Player 1 Name:</label>
+    <input type="text" id="player1-name" placeholder="Enter name" />
+    <label for="player2-name">Player 2 Name:</label>
+    <input type="text" id="player2-name" placeholder="Enter name" />
+    <label for="grid-size">Grid Size:</label>
+    <select id="grid-size">
+      <option value="3">3x3</option>
+      <option value="4">4x4</option>
+      <option value="5">5x5</option>
+    </select>
+    <button class="start-game" id="start-game">Start Game</button>
+  </div>
+  <script src="script.js"></script>
+</body>
 </html>
