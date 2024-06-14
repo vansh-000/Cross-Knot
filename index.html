@@ -46,34 +46,38 @@
         </div>
         <div class="draws">
           <label>Draws</label>
-          <span class="draw">0</span>
+          <span class="draws">0</span>
         </div>
         <div class="player">
           <label>Player 2</label>
           <span class="score2">0</span>
         </div>
       </div>
-      <div class="new-game" id="new-game">Start New Game</div>
+      <div class="new-game" id="new-game-button">
+        <i class="fa fa-plus"></i> New Game
+      </div>
     </div>
-    <div class="name-input" id="name-input">
-      <label for="player1-name">Player 1 Name:</label>
-      <input type="text" id="player1-name" placeholder="Enter name" />
-      <label for="player2-name">Player 2 Name:</label>
-      <input type="text" id="player2-name" placeholder="Enter name" />
-      <label for="grid-size">Grid Size:</label>
-      <select id="grid-size">
-        <option value="3">3x3</option>
-        <option value="4">4x4</option>
-        <option value="5">5x5</option>
-      </select>
-      <button class="start-game" id="start-game">Start Game</button>
-    </div>
-    <div class="modal" id="modal">
+    <div class="modal" id="name-modal">
       <div class="modal-content">
-        <p>Are you sure you want to reset the game?</p>
-        <div class="modal-buttons">
-          <button class="reset-confirm">Reset</button>
-          <button class="reset-cancel">Cancel</button>
+        <div class="name-input">
+          <label for="player1-name">Player 1 Name:</label>
+          <input type="text" id="player1-name" />
+          <label for="player2-name">Player 2 Name:</label>
+          <input type="text" id="player2-name" />
+          <label for="grid-size">Grid Size:</label>
+          <select id="grid-size">
+            <option value="3">3 x 3</option>
+            <option value="4">4 x 4</option>
+            <option value="5">5 x 5</option>
+          </select>
+          <label for="game-mode">Game Mode:</label>
+          <select id="game-mode">
+            <option value="2p">2 Players</option>
+            <option value="pc">Play with PC</option>
+          </select>
+          <div class="modal-buttons">
+            <button id="start-game-button">Start Game</button>
+          </div>
         </div>
       </div>
     </div>

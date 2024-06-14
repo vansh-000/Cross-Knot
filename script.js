@@ -1,172 +1,161 @@
-const cellsContainer = document.querySelector(".cells");
-const currentTurnSpan = document.querySelector(".current-turn");
-const overlay = document.getElementById("overlay");
-const winnerMessage = document.getElementById("winner-message");
-const resultMessage = document.getElementById("result");
-const resetBtn = document.getElementById("reset-button");
-const newGameBtn = document.getElementById("new-game");
-const player1NameInput = document.getElementById("player1-name");
-const player2NameInput = document.getElementById("player2-name");
-const nameInputDiv = document.getElementById("name-input");
-const startGameBtn = document.getElementById("start-game");
-const gridSizeSelect = document.getElementById("grid-size");
-const modal = document.querySelector(".modal");
-const resetConfirmBtn = document.querySelector(".reset-confirm");
-const resetCancelBtn = document.querySelector(".reset-cancel");
+const cellsContainer = document.querySelector('.cells');
+    const resetButton = document.getElementById('reset-button');
+    const newGameButton = document.getElementById('new-game-button');
+    const overlay = document.getElementById('overlay');
+    const message = document.getElementById('message');
+    const winnerMessage = document.getElementById('winner-message');
+    const resultMessage = document.getElementById('result');
+    const currentTurnElement = document.querySelector('.current-turn');
+    const score1Element = document.querySelector('.score1');
+    const score2Element = document.querySelector('.score2');
+    const drawsElement = document.querySelector('.draws');
+    const nameModal = document.getElementById('name-modal');
+    const startGameButton = document.getElementById('start-game-button');
+    const player1NameInput = document.getElementById('player1-name');
+    const player2NameInput = document.getElementById('player2-name');
+    const gridSizeSelector = document.getElementById('grid-size');
+    const gameModeSelector = document.getElementById('game-mode');
 
-let currentPlayer = "Player 1";
-let player1Score = 0;
-let player2Score = 0;
-let draws = 0;
-let gameBoard = [];
-let player1Name = "Player 1";
-let player2Name = "Player 2";
-let gridSize = 3;
+    let currentPlayer = 'Player 1';
+    let player1Score = 0;
+    let player2Score = 0;
+    let draws = 0;
+    let gameBoard = [];
+    let gridSize = 3;
+    let player1Name = 'Player 1';
+    let player2Name = 'Player 2';
+    let gameMode = '2p';
 
-const winningCombinations = (size) => {
-  let combinations = [];
-
-  // Rows
-  for (let i = 0; i < size; i++) {
-    let row = [];
-    for (let j = 0; j < size; j++) {
-      row.push(i * size + j);
-    }
-    combinations.push(row);
-  }
-
-  // Columns
-  for (let i = 0; i < size; i++) {
-    let column = [];
-    for (let j = 0; j < size; j++) {
-      column.push(i + size * j);
-    }
-    combinations.push(column);
-  }
-
-  // Diagonals
-  let diagonal1 = [];
-  let diagonal2 = [];
-  for (let i = 0; i < size; i++) {
-    diagonal1.push(i * (size + 1));
-    diagonal2.push((i + 1) * (size - 1));
-  }
-  combinations.push(diagonal1);
-  combinations.push(diagonal2);
-
-  return combinations;
-};
-
-const checkWinner = () => {
-  const combinations = winningCombinations(gridSize);
-  for (let combination of combinations) {
-    const [a, b, c, d, e] = combination;
-    if (
-      gameBoard[a] &&
-      gameBoard[a] === gameBoard[b] &&
-      gameBoard[a] === gameBoard[c] &&
-      (gridSize === 3 ||
-        (gameBoard[a] === gameBoard[d] &&
-          (gridSize === 4 || gameBoard[a] === gameBoard[e])))
-    ) {
-      return gameBoard[a];
-    }
-  }
-  return gameBoard.includes(null) ? null : "Draw";
-};
-
-const resetGame = () => {
-  gameBoard = Array(gridSize * gridSize).fill(null);
-  cellsContainer.innerHTML = "";
-  cellsContainer.style.width = `${gridSize * 90 + (gridSize - 1) * 10}px`;
-  for (let i = 0; i < gameBoard.length; i++) {
-    const cell = document.createElement("div");
-    cell.classList.add("cell");
-    cell.setAttribute("data-index", i);
-    cellsContainer.appendChild(cell);
-    cell.addEventListener("click", handleCellClick);
-  }
-  currentPlayer = player1Name;
-  currentTurnSpan.textContent = `${currentPlayer}'s`;
-};
-
-const showOverlay = (message, result) => {
-  winnerMessage.textContent = message;
-  resultMessage.textContent = result;
-  overlay.style.display = "flex";
-  setTimeout(() => {
-    overlay.style.display = "none";
-    resetGame();
-  }, 2000);
-};
-
-const handleCellClick = (e) => {
-  const index = e.target.getAttribute("data-index");
-  if (gameBoard[index] || checkWinner()) return;
-  gameBoard[index] = currentPlayer;
-  e.target.textContent = currentPlayer === player1Name ? "X" : "O";
-
-  const winner = checkWinner();
-  if (winner) {
-    if (winner === "Draw") {
-      draws++;
-      document.querySelector(".draw").textContent = draws;
-      showOverlay("It's a ", "DRAW");
-    } else {
-      if (winner === player1Name) {
-        player1Score++;
-        document.querySelector(".score1").textContent = player1Score;
-      } else {
-        player2Score++;
-        document.querySelector(".score2").textContent = player2Score;
+    function createBoard() {
+      cellsContainer.innerHTML = '';
+      gameBoard = [];
+      for (let i = 0; i < gridSize; i++) {
+        gameBoard.push(new Array(gridSize).fill(null));
       }
-      showOverlay(`${winner} is the `, "WINNER");
+      cellsContainer.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+      for (let i = 0; i < gridSize * gridSize; i++) {
+        const cell = document.createElement('div');
+        cell.classList.add('cell');
+        cell.dataset.index = i;
+        cell.addEventListener('click', handleCellClick);
+        cellsContainer.appendChild(cell);
+      }
     }
-  } else {
-    currentPlayer = currentPlayer === player1Name ? player2Name : player1Name;
-    currentTurnSpan.textContent = `${currentPlayer}'s`;
-  }
-};
 
-const startNewGame = () => {
-  nameInputDiv.style.display = "flex";
-  player1Score = 0;
-  player2Score = 0;
-  draws = 0;
-  document.querySelector(".score1").textContent = player1Score;
-  document.querySelector(".score2").textContent = player2Score;
-  document.querySelector(".draw").textContent = draws;
-};
+    function handleCellClick(event) {
+      const index = event.target.dataset.index;
+      const row = Math.floor(index / gridSize);
+      const col = index % gridSize;
+      if (gameBoard[row][col] !== null) return;
 
-const startGame = () => {
-  player1Name = player1NameInput.value || "Player 1";
-  player2Name = player2NameInput.value || "Player 2";
-  gridSize = parseInt(gridSizeSelect.value);
-  document.querySelectorAll(".player label")[0].textContent = player1Name;
-  document.querySelectorAll(".player label")[1].textContent = player2Name;
-  currentPlayer = player1Name;
-  currentTurnSpan.textContent = `${currentPlayer}'s`;
-  nameInputDiv.style.display = "none";
-  resetGame();
-};
+      gameBoard[row][col] = currentPlayer;
+      event.target.textContent = currentPlayer === 'Player 1' ? 'X' : 'O';
+      if (checkWin()) {
+        if (currentPlayer === 'Player 1') {
+          player1Score++;
+          score1Element.textContent = player1Score;
+        } else {
+          player2Score++;
+          score2Element.textContent = player2Score;
+        }
+        setTimeout(() => {
+          displayWinner(`${currentPlayer} Wins!`);
+        }, 300);
+        return;
+      }
 
-window.onload = () => {
-  nameInputDiv.style.display = "flex";
-};
+      if (gameBoard.flat().every(cell => cell !== null)) {
+        draws++;
+        drawsElement.textContent = draws;
+        setTimeout(() => {
+          displayWinner('It\'s a Draw!');
+        }, 300);
+        return;
+      }
 
-resetBtn.addEventListener("click", () => {
-  modal.style.display = "flex";
-});
+      currentPlayer = currentPlayer === 'Player 1' ? 'Player 2' : 'Player 1';
+      currentTurnElement.textContent = `${currentPlayer}'s turn`;
 
-resetConfirmBtn.addEventListener("click", () => {
-  resetGame();
-  modal.style.display = "none";
-});
+      if (gameMode === 'pc' && currentPlayer === 'Player 2') {
+        setTimeout(pcMove, 300);
+      }
+    }
 
-resetCancelBtn.addEventListener("click", () => {
-  modal.style.display = "none";
-});
+    function pcMove() {
+      const emptyCells = [];
+      for (let i = 0; i < gameBoard.length; i++) {
+        for (let j = 0; j < gameBoard[i].length; j++) {
+          if (gameBoard[i][j] === null) {
+            emptyCells.push({ row: i, col: j });
+          }
+        }
+      }
 
-startGameBtn.addEventListener("click", startGame);
-newGameBtn.addEventListener("click", startNewGame);
+      if (emptyCells.length === 0) return;
 
+      const { row, col } = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+      gameBoard[row][col] = 'Player 2';
+      const cell = cellsContainer.querySelector(`[data-index="${row * gridSize + col}"]`);
+      cell.textContent = 'O';
+
+      if (checkWin()) {
+        player2Score++;
+        score2Element.textContent = player2Score;
+        setTimeout(() => {
+          displayWinner('Player 2 Wins!');
+        }, 300);
+        return;
+      }
+
+      if (gameBoard.flat().every(cell => cell !== null)) {
+        draws++;
+        drawsElement.textContent = draws;
+        setTimeout(() => {
+          displayWinner('It\'s a Draw!');
+        }, 300);
+        return;
+      }
+
+      currentPlayer = 'Player 1';
+      currentTurnElement.textContent = `${currentPlayer}'s turn`;
+    }
+
+    function checkWin() {
+      const winningCombinations = [
+        ...gameBoard,
+        ...gameBoard[0].map((_, colIndex) => gameBoard.map(row => row[colIndex])),
+        gameBoard.map((row, index) => row[index]),
+        gameBoard.map((row, index) => row[gridSize - 1 - index])
+      ];
+      return winningCombinations.some(combination => combination.every(cell => cell === currentPlayer));
+    }
+
+    function displayWinner(message) {
+      winnerMessage.textContent = message;
+      resultMessage.textContent = message.includes('Draw') ? 'DRAW' : 'WINNER';
+      overlay.style.display = 'flex';
+      setTimeout(() => {
+        overlay.style.display = 'none';
+        createBoard();
+      }, 2000);
+    }
+
+    resetButton.addEventListener('click', () => {
+      createBoard();
+    });
+
+    newGameButton.addEventListener('click', () => {
+      nameModal.style.display = 'flex';
+    });
+
+    startGameButton.addEventListener('click', () => {
+      player1Name = player1NameInput.value || 'Player 1';
+      player2Name = player2NameInput.value || 'Player 2';
+      gridSize = parseInt(gridSizeSelector.value);
+      gameMode = gameModeSelector.value;
+      currentTurnElement.textContent = `${player1Name}'s turn`;
+      nameModal.style.display = 'none';
+      createBoard();
+    });
+
+    createBoard();
