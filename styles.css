@@ -82,7 +82,7 @@ body {
   background-color: #19375b;
 }
 .player,
-.draws {
+.draw {
   display: flex;
   flex-direction: column;
   align-items: center;
