@@ -231,3 +231,33 @@ label {
 .modal-buttons button:hover {
   background-color: #ffb300;
 }
+
+
+@media (max-width: 600px) {
+  .container {
+    max-width: 300px;
+    gap: 15px;
+  }
+  .cell {
+    width: 60px;
+    height: 60px;
+    font-size: 2em;
+  }
+  .tools,
+  .stats {
+    padding: 15px;
+    gap: 10px;
+  }
+  .stats span,
+  .reset,
+  .new-game {
+    font-size: 1em;
+  }
+  #message {
+    width: 80%;
+    padding: 30px;
+  }
+  .name-input {
+    width: 80%;
+  }
+}
