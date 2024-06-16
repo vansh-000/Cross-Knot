@@ -13,17 +13,26 @@ body {
   justify-content: center;
   align-items: center;
   position: relative;
-  background: url("bg.webp") no-repeat center center/cover;
+  background: url("bg.jpg") no-repeat center center/cover;
 }
 .title {
-  text-align: center;
-  margin-bottom: 15px;
-  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  gap: 10px; 
 }
+
+.title img.logo {
+  height: 35px;
+  width: auto;
+  margin-right: 10px;
+}
+
 .title h1 {
   font-size: 1.8em;
   color: #ff7300;
-  margin-bottom: 5px;
+  margin-bottom: 0; /* Reset bottom margin for better alignment */
 }
 .title h2 {
   font-size: 1.3em;
@@ -58,7 +67,7 @@ body {
 .reset,
 .new-game {
   cursor: pointer;
-  color: #ff7300;
+  color: #ffffff;
   font-size: 1em;
   transition: transform 0.3s;
 }
@@ -101,7 +110,7 @@ label {
   margin-bottom: 5px;
 }
 .stats span {
-  color: #ff7300;
+  color: #ffd500;
   font-size: 1em;
 }
 #overlay {
