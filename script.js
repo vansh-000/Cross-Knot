@@ -18,6 +18,10 @@ const gameModeSelector = document.getElementById("game-mode");
 const player1Label = document.getElementById("player1-label");
 const player2Label = document.getElementById("player2-label");
 
+const resetModal = document.getElementById("reset-modal");
+const confirmResetButton = document.getElementById("confirm-reset-button");
+const cancelResetButton = document.getElementById("cancel-reset-button");
+
 let currentPlayer;
 let player1Score = 0;
 let player2Score = 0;
@@ -161,10 +165,23 @@ function resetBoard() {
   currentTurnElement.textContent = `${currentPlayer}'s`;
 }
 
-resetButton.addEventListener("click", resetBoard);
+resetButton.addEventListener("click", () => {
+  resetModal.style.display = "flex";
+});
+
+confirmResetButton.addEventListener("click", () => {
+  resetModal.style.display = "none";
+  resetBoard();
+});
+
+cancelResetButton.addEventListener("click", () => {
+  resetModal.style.display = "none";
+});
+
 newGameButton.addEventListener("click", () => {
   nameModal.style.display = "flex";
 });
+
 startGameButton.addEventListener("click", () => {
   player1Name = player1NameInput.value || "Player 1";
   player2Name = player2NameInput.value || "Player 2";
@@ -188,4 +205,7 @@ startGameButton.addEventListener("click", () => {
   createBoard();
 });
 
-createBoard();
+window.addEventListener("load", () => {
+  nameModal.style.display = "flex";
+  createBoard();
+});
