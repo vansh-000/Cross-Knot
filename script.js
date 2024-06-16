@@ -15,6 +15,8 @@ const player1NameInput = document.getElementById("player1-name");
 const player2NameInput = document.getElementById("player2-name");
 const gridSizeSelector = document.getElementById("grid-size");
 const gameModeSelector = document.getElementById("game-mode");
+const player1Label = document.getElementById("player1-label");
+const player2Label = document.getElementById("player2-label");
 
 let currentPlayer;
 let player1Score = 0;
@@ -41,7 +43,7 @@ function createBoard() {
     cellsContainer.appendChild(cell);
   }
   currentPlayer = player1Name;
-  currentTurnElement.textContent = `${currentPlayer}'s turn`;
+  currentTurnElement.textContent = `${currentPlayer}'s`;
 }
 
 function handleCellClick(event) {
@@ -61,11 +63,10 @@ function handleCellClick(event) {
       score2Element.textContent = player2Score;
     }
     setTimeout(() => {
-      displayWinner(`${currentPlayer} is the winner`);
+      displayWinner(`${currentPlayer} is the`);
     }, 300);
     return;
   }
-
   if (gameBoard.flat().every((cell) => cell !== null)) {
     draws++;
     drawsElement.textContent = draws;
@@ -76,7 +77,7 @@ function handleCellClick(event) {
   }
 
   currentPlayer = currentPlayer === player1Name ? player2Name : player1Name;
-  currentTurnElement.textContent = `${currentPlayer}'s turn`;
+  currentTurnElement.textContent = `${currentPlayer}'s`;
 
   if (gameMode === "pc" && currentPlayer === player2Name) {
     setTimeout(pcMove, 300);
@@ -107,7 +108,7 @@ function pcMove() {
     player2Score++;
     score2Element.textContent = player2Score;
     setTimeout(() => {
-      displayWinner(`${player2Name} is the winner`);
+      displayWinner(`${player2Name} is the`);
     }, 300);
     return;
   }
@@ -122,7 +123,7 @@ function pcMove() {
   }
 
   currentPlayer = player1Name;
-  currentTurnElement.textContent = `${currentPlayer}'s turn`;
+  currentTurnElement.textContent = `${currentPlayer}'s`;
 }
 
 function checkWin() {
@@ -138,38 +139,51 @@ function checkWin() {
 }
 
 function displayWinner(message) {
-  winnerMessage.textContent = message;
-  resultMessage.textContent = message.includes("draw") ? "DRAW" : "WINNER";
+  const isDraw = message.toLowerCase().includes("draw");
+
+  resultMessage.textContent = isDraw ? "DRAW" : "WINNER";
+  winnerMessage.textContent = isDraw ? "It's a" : message;
+
   overlay.style.display = "flex";
+
   setTimeout(() => {
     overlay.style.display = "none";
-    createBoard();
+    resetBoard();
   }, 2000);
 }
 
-resetButton.addEventListener("click", () => {
-  createBoard();
-});
+function resetBoard() {
+  gameBoard = gameBoard.map((row) => row.map(() => null));
+  document.querySelectorAll(".cell").forEach((cell) => {
+    cell.textContent = "";
+  });
+  currentPlayer = player1Name;
+  currentTurnElement.textContent = `${currentPlayer}'s`;
+}
 
+resetButton.addEventListener("click", resetBoard);
 newGameButton.addEventListener("click", () => {
   nameModal.style.display = "flex";
 });
-
 startGameButton.addEventListener("click", () => {
   player1Name = player1NameInput.value || "Player 1";
-  player2Name = gameModeSelector.value === "pc" ? "Computer" : (player2NameInput.value || "Player 2");
+  player2Name = player2NameInput.value || "Player 2";
+  player2Name =
+    gameModeSelector.value === "pc"
+      ? "Computer"
+      : player2NameInput.value || "Player 2";
   gridSize = parseInt(gridSizeSelector.value);
   gameMode = gameModeSelector.value;
-  
+  player1Label.textContent = player1Name;
   player1Score = 0;
   player2Score = 0;
   draws = 0;
-  
+  player2Label.textContent = player2Name;
   score1Element.textContent = player1Score;
   score2Element.textContent = player2Score;
   drawsElement.textContent = draws;
-  
-  currentTurnElement.textContent = `${player1Name}'s turn`;
+
+  currentTurnElement.textContent = `${player1Name}'s`;
   nameModal.style.display = "none";
   createBoard();
 });
